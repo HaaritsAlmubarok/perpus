@@ -1,0 +1,182 @@
+{% extends 'nav.html' %} {% block title %} Dashboard Monitor - Sistem Peminjaman Buku SIPUSTAKA {% endblock %} {% block content %}
+<style>
+  body {
+    background-color: #020617 !important; /* bg-slate-950 */
+  }
+  main {
+    padding: 0 !important;
+  }
+</style>
+<div class="w-full min-h-full bg-slate-950 text-slate-100 p-6 md:p-8 overflow-y-auto relative">
+  <!-- Glowing background elements -->
+  <div class="absolute top-10 left-10 w-72 h-72 bg-brand-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <!-- Header -->
+  <div class="flex flex-col gap-1 mb-8 relative z-10">
+    <p class="text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-bold drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+      SIPUSTAKA CORE MONITOR
+    </p>
+    <h1 class="text-3xl font-black bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 bg-clip-text text-transparent">
+      DASHBOARD KONTROL
+    </h1>
+  </div>
+
+  <!-- Top Cards Grid -->
+  <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4 relative z-10">
+    <!-- Total Buku -->
+    <article
+      class="rounded-3xl bg-slate-900/40 border border-slate-800/70 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] p-6 transition-all duration-300 transform hover:-translate-y-1.5 relative overflow-hidden group"
+    >
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all duration-500"></div>
+      <div class="flex items-center justify-between mb-5">
+        <p class="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Total Buku</p>
+        <div class="w-10 h-10 rounded-xl bg-cyan-950/50 border border-cyan-800/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)] group-hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all">
+          <span class="material-icons-outlined text-lg">library_books</span>
+        </div>
+      </div>
+      <div>
+        <p id="stat-total-books" class="text-5xl font-black text-white tracking-tight leading-none">
+          {{ total_buku }}
+        </p>
+        <p class="mt-4 text-[11px] text-slate-500">Keseluruhan unit buku tersedia.</p>
+      </div>
+    </article>
+
+    <!-- Total Judul -->
+    <article
+      class="rounded-3xl bg-slate-900/40 border border-slate-800/70 hover:border-fuchsia-500/50 hover:shadow-[0_0_25px_rgba(217,70,239,0.15)] p-6 transition-all duration-300 transform hover:-translate-y-1.5 relative overflow-hidden group"
+    >
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-fuchsia-500/5 rounded-full blur-2xl group-hover:bg-fuchsia-500/10 transition-all duration-500"></div>
+      <div class="flex items-center justify-between mb-5">
+        <p class="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Total Judul</p>
+        <div class="w-10 h-10 rounded-xl bg-fuchsia-950/50 border border-fuchsia-800/30 flex items-center justify-center text-fuchsia-400 shadow-[0_0_15px_rgba(217,70,239,0.1)] group-hover:shadow-[0_0_20px_rgba(217,70,239,0.3)] transition-all">
+          <span class="material-icons-outlined text-lg">menu_book</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-5xl font-black text-white tracking-tight leading-none">
+          {{ total_judul }}
+        </p>
+        <p class="mt-4 text-[11px] text-slate-500">Jumlah koleksi judul buku.</p>
+      </div>
+    </article>
+
+    <!-- Sedang Dipinjam -->
+    <article
+      class="rounded-3xl bg-slate-900/40 border border-slate-800/70 hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.15)] p-6 transition-all duration-300 transform hover:-translate-y-1.5 relative overflow-hidden group"
+    >
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-all duration-500"></div>
+      <div class="flex items-center justify-between mb-5">
+        <p class="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Sedang Dipinjam</p>
+        <div class="w-10 h-10 rounded-xl bg-amber-950/50 border border-amber-800/30 flex items-center justify-center text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.1)] group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all">
+          <span class="material-icons-outlined text-lg">pending</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-5xl font-black text-white tracking-tight leading-none">
+          {{ sedang_dipinjam }}
+        </p>
+        <p class="mt-4 text-[11px] text-slate-500">Transaksi peminjaman aktif.</p>
+      </div>
+    </article>
+
+    <!-- Sudah Dikembalikan -->
+    <article
+      class="rounded-3xl bg-slate-900/40 border border-slate-800/70 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.15)] p-6 transition-all duration-300 transform hover:-translate-y-1.5 relative overflow-hidden group"
+    >
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+      <div class="flex items-center justify-between mb-5">
+        <p class="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Sudah Dikembalikan</p>
+        <div class="w-10 h-10 rounded-xl bg-emerald-950/50 border border-emerald-800/30 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.1)] group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+          <span class="material-icons-outlined text-lg">check_circle</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-5xl font-black text-white tracking-tight leading-none">
+          {{ sudah_dikembalikan }}
+        </p>
+        <p class="mt-4 text-[11px] text-slate-500">Transaksi yang sudah selesai.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- Bottom Analytics Grid -->
+  <div class="grid gap-6 md:grid-cols-2 mt-8 relative z-10">
+    <!-- Analisis Stok -->
+    <section
+      class="rounded-3xl bg-slate-900/20 border border-slate-800/70 p-6 backdrop-blur-md shadow-xl"
+    >
+      <p class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1.5 drop-shadow-[0_0_6px_rgba(34,211,238,0.2)]">
+        Analisis Stok
+      </p>
+      <h3 class="text-lg font-extrabold text-white mb-6">Distribusi Stok Buku</h3>
+      
+      <div class="space-y-6">
+        {% for buku in buku_list %}
+        <div class="group/bar">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-bold text-slate-300 text-xs transition-colors group-hover/bar:text-white">{{ buku.judul }}</span>
+            <span class="font-black text-cyan-400 text-xs drop-shadow-[0_0_6px_rgba(34,211,238,0.3)]">{{ buku.stok }}</span>
+          </div>
+          <!-- Progress Bar Track -->
+          <div class="w-full bg-slate-950/60 border border-slate-900 rounded-full h-3 p-[2px] overflow-hidden">
+            <!-- Progress Bar Fill -->
+            <div
+              class="bg-gradient-to-r from-cyan-500 to-indigo-500 h-full rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(6,182,212,0.4)]"
+              style="width: {{ buku.persen_stok }}%"
+            ></div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-slate-500 text-center py-8 text-xs">Belum ada data buku.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Status Peminjaman -->
+    <section
+      class="rounded-3xl bg-slate-900/20 border border-slate-800/70 p-6 backdrop-blur-md shadow-xl"
+    >
+      <p class="text-[10px] font-bold text-amber-400 uppercase tracking-widest mb-1.5 drop-shadow-[0_0_6px_rgba(245,158,11,0.2)]">
+        Status Peminjaman
+      </p>
+      <h3 class="text-lg font-extrabold text-white mb-6">Ringkasan Transaksi</h3>
+      
+      <div class="space-y-6">
+        <!-- Sedang Dipinjam -->
+        <div class="group/bar">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-bold text-slate-300 text-xs transition-colors group-hover/bar:text-white">Sedang Dipinjam</span>
+            <span class="font-black text-amber-400 text-xs drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]">{{ sedang_dipinjam }}</span>
+          </div>
+          <!-- Progress Bar Track -->
+          <div class="w-full bg-slate-950/60 border border-slate-900 rounded-full h-3 p-[2px] overflow-hidden">
+            <!-- Progress Bar Fill -->
+            <div
+              class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(245,158,11,0.4)]"
+              style="width: {{ persen_dipinjam }}%"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Sudah Dikembalikan -->
+        <div class="group/bar">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-bold text-slate-300 text-xs transition-colors group-hover/bar:text-white">Sudah Dikembalikan</span>
+            <span class="font-black text-emerald-400 text-xs drop-shadow-[0_0_6px_rgba(16,185,129,0.3)]">{{ sudah_dikembalikan }}</span>
+          </div>
+          <!-- Progress Bar Track -->
+          <div class="w-full bg-slate-950/60 border border-slate-900 rounded-full h-3 p-[2px] overflow-hidden">
+            <!-- Progress Bar Fill -->
+            <div
+              class="bg-gradient-to-r from-emerald-400 to-teal-500 h-full rounded-full transition-all duration-700 shadow-[0_0_10px_rgba(16,185,129,0.4)]"
+              style="width: {{ persen_dikembalikan }}%"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

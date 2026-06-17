@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %} Dashboard - Sistem Peminjaman Buku SIPUSTAKA 
+      {%endblock%}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#eff6ff",
+                100: "#dbeafe",
+                200: "#bfdbfe",
+                300: "#93c5fd",
+                400: "#60a5fa",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+                800: "#1e40af",
+                900: "#1e3a8a",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(100, 116, 139, 0.35);
+        border-radius: 9999px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-100 h-screen overflow-hidden">
+    <div class="h-screen flex flex-col md:flex-row">
+      <!-- area menu samping -->
+      <aside
+        class="w-full md:w-72 h-screen bg-slate-950 text-slate-100 flex-none flex flex-col border-r border-slate-900"
+      >
+        <!-- area menu header/logo -->
+        <div class="px-6 py-7 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 to-sky-400 flex items-center justify-center shadow-lg shadow-slate-900/25"
+            >
+              <span class="text-xl font-bold">P</span>
+            </div>
+            <div>
+              <p class="text-sm uppercase text-slate-400 tracking-[0.25em]">
+                SIPUSTAKA
+              </p>
+              <h1 class="text-xl font-semibold">Sistem Peminjaman Buku</h1>
+            </div>
+          </div>
+        </div>
+        <!-- area menu navigasi -->
+        <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+          <!-- Dashboard (root) -->
+          <a
+            href="{% url 'dashboard' %}"
+            class="w-full text-left rounded-2xl px-4 py-3 flex items-center gap-3 {% if request.resolver_match.url_name == 'dashboard' %}text-slate-200 bg-slate-900 shadow-inner shadow-black/10{% else %}text-slate-300 hover:text-white hover:bg-slate-900 transition{% endif %}"
+          >
+            <span class="material-icons-outlined">dashboard</span>
+            Dashboard
+          </a>
+
+          <!-- Buku -->
+          <a
+            href="{% url 'list_buku' %}"
+            class="w-full text-left rounded-2xl px-4 py-3 flex items-center gap-3 {% if request.resolver_match.url_name in 'list_buku detail_buku edit_buku hapus_buku tambah_buku' %}text-slate-200 bg-slate-900 shadow-inner shadow-black/10{% else %}text-slate-300 hover:text-white hover:bg-slate-900 transition{% endif %}"
+          >
+            <span class="material-icons-outlined">menu_book</span>
+            Buku
+          </a>
+
+          <!-- Peminjaman -->
+          <a
+            href="{% url 'list_peminjam' %}"
+            class="w-full text-left rounded-2xl px-4 py-3 flex items-center gap-3 {% if request.resolver_match.url_name in 'list_peminjam tambah_peminjam ubah_status' %}text-slate-200 bg-slate-900 shadow-inner shadow-black/10{% else %}text-slate-300 hover:text-white hover:bg-slate-900 transition{% endif %}"
+          >
+            <span class="material-icons-outlined">inventory</span>
+            Peminjaman
+          </a>
+
+          <!-- Daftar User -->
+          <a
+            href="{% url 'list_siswa' %}"
+            class="page-link w-full text-left rounded-2xl px-4 py-3 flex items-center gap-3 {% if request.resolver_match.url_name in 'list_siswa tambah_siswa detail_siswa edit_siswa hapus_siswa' %}text-slate-200 bg-slate-900 shadow-inner shadow-black/10{% else %}text-slate-300 hover:text-white hover:bg-slate-900 transition{% endif %}"
+          >
+            <span class="material-icons-outlined">group</span>
+            User
+          </a>
+        </nav>
+        <!-- area menu footer -->
+        <div class="mt-auto px-6 pb-6">
+          <div
+            class="rounded-3xl bg-slate-900 p-5 shadow-xl shadow-slate-900/20"
+          >
+            <p class="text-sm text-slate-400">Admin Aktif</p>
+            <p class="mt-2 font-semibold text-white">Haarits Slekbong</p>
+          </div>
+        </div>
+      </aside>
+      <main class="flex-1 overflow-y-auto p-6 md:p-8">
+        {% block content %} {% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

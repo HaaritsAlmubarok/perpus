@@ -1,0 +1,80 @@
+{% extends 'nav.html' %} {% block title %} Detail User - Sistem Peminjaman Buku SIPUSTAKA {% endblock %} {% block content %}
+<div class="flex flex-col gap-6 text-sm">
+  <!-- Back Button & Header -->
+  <div class="flex items-center gap-3">
+    <a href="{% url 'list_siswa' %}" class="text-slate-400 hover:text-white transition duration-200">
+      <span class="material-icons-outlined text-xl">arrow_back</span>
+    </a>
+    <div>
+      <p class="text-xs uppercase tracking-wider text-fuchsia-400 font-semibold mb-1">DETAIL USER</p>
+      <h3 class="text-2xl font-black text-white">Detail User</h3>
+    </div>
+  </div>
+
+  <!-- Detail Content Card -->
+  <div class="rounded-[2rem] bg-slate-900/40 border border-slate-800/70 p-6 md:p-8 backdrop-blur-md shadow-xl max-w-3xl">
+    <div class="grid gap-5 sm:grid-cols-2">
+      <!-- ID -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ID</p>
+        <p class="mt-2 text-base font-bold text-white font-mono">{{ siswa.id }}</p>
+      </div>
+      <!-- Nama -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Nama Lengkap</p>
+        <p class="mt-2 text-base font-bold text-white">{{ siswa.nama }}</p>
+      </div>
+      <!-- Kelas -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Kelas</p>
+        <p class="mt-2 text-base font-bold text-white">{{ siswa.kelas }}</p>
+      </div>
+      <!-- NIS -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">NIS</p>
+        <p class="mt-2 text-base font-bold text-white font-mono">{{ siswa.nis }}</p>
+      </div>
+      <!-- Status -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Status</p>
+        <div class="mt-2">
+          {% if siswa.status == 'Aktif' %}
+          <span class="inline-flex items-center rounded-full bg-emerald-950/60 border border-emerald-800/40 px-3 py-1 text-sm font-bold text-emerald-400">{{ siswa.status }}</span>
+          {% else %}
+          <span class="inline-flex items-center rounded-full bg-slate-800/60 border border-slate-700/40 px-3 py-1 text-sm font-bold text-slate-400">{{ siswa.status }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Total Peminjaman -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Peminjaman</p>
+        <p class="mt-2 text-2xl font-black text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.3)]">{{ total_peminjaman }}</p>
+      </div>
+    </div>
+
+    <!-- Peminjaman Aktif Banner -->
+    <div class="mt-5 rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5">
+      <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Peminjaman Aktif Saat Ini</p>
+      <p class="mt-2 text-sm font-semibold {% if peminjaman_aktif > 0 %}text-amber-400{% else %}text-slate-400{% endif %}">
+        {% if peminjaman_aktif > 0 %}
+        {{ peminjaman_aktif }} buku sedang dipinjam.
+        {% else %}
+        Tidak ada buku yang sedang dipinjam.
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-slate-800/60">
+      <a href="{% url 'list_siswa' %}"
+        class="rounded-2xl border border-slate-800 bg-slate-900/40 px-5 py-3 text-slate-300 hover:text-white transition duration-200 font-semibold">
+        Kembali
+      </a>
+      <a href="{% url 'edit_siswa' siswa.id %}"
+        class="rounded-2xl bg-gradient-to-r from-fuchsia-500 to-brand-600 px-6 py-3 text-white shadow-lg shadow-fuchsia-500/15 hover:shadow-fuchsia-500/25 transition duration-200 font-semibold">
+        Edit User
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

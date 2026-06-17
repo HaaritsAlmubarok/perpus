@@ -1,0 +1,78 @@
+{% extends 'nav.html' %} {% block title %} Detail Peminjaman - Sistem Peminjaman Buku SIPUSTAKA {% endblock %} {% block content %}
+<div class="flex flex-col gap-6 text-sm">
+  <!-- Back Button & Header -->
+  <div class="flex items-center gap-3">
+    <a href="{% url 'list_peminjam' %}" class="text-slate-400 hover:text-white transition duration-200">
+      <span class="material-icons-outlined text-xl">arrow_back</span>
+    </a>
+    <div>
+      <p class="text-xs uppercase tracking-wider text-amber-400 font-semibold mb-1">DETAIL TRANSAKSI</p>
+      <h3 class="text-2xl font-black text-white">Detail Peminjaman</h3>
+    </div>
+  </div>
+
+  <!-- Detail Content Card -->
+  <div class="rounded-[2rem] bg-slate-900/40 border border-slate-800/70 p-6 md:p-8 backdrop-blur-md shadow-xl max-w-4xl">
+    <div class="grid gap-5 sm:grid-cols-2">
+      <!-- ID Peminjaman -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ID Peminjaman</p>
+        <p class="mt-2 text-base font-bold text-white font-mono">#{{ peminjaman.id }}</p>
+      </div>
+      <!-- Nama Peminjam -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Nama Peminjam</p>
+        <p class="mt-2 text-base font-bold text-white">{{ peminjaman.nama_peminjam }}</p>
+      </div>
+      <!-- Buku -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Buku Dipinjam</p>
+        <p class="mt-2 text-base font-bold text-white">{{ peminjaman.buku }}</p>
+      </div>
+      <!-- Petugas -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Petugas</p>
+        <p class="mt-2 text-base font-bold text-white">{{ peminjaman.petugas }}</p>
+      </div>
+      <!-- Tanggal Pinjam -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tanggal Pinjam</p>
+        <p class="mt-2 text-base font-bold text-white font-mono">{{ peminjaman.tanggal_pinjam }}</p>
+      </div>
+      <!-- Jatuh Tempo -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Jatuh Tempo</p>
+        <p class="mt-2 text-base font-bold text-white font-mono">{{ peminjaman.jatuh_tempo }}</p>
+      </div>
+      <!-- Status -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Status</p>
+        <div class="mt-2">
+          {% if peminjaman.status == 'Dikembalikan' %}
+          <span class="inline-flex items-center rounded-full bg-emerald-950/60 border border-emerald-800/40 px-3 py-1 text-sm font-bold text-emerald-400">{{ peminjaman.status }}</span>
+          {% else %}
+          <span class="inline-flex items-center rounded-full bg-amber-950/60 border border-amber-800/40 px-3 py-1 text-sm font-bold text-amber-400">{{ peminjaman.status }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Keterangan -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Keterangan / Catatan</p>
+        <p class="mt-2 text-sm text-slate-300 leading-relaxed">{{ peminjaman.keterangan|default:"Tidak ada keterangan." }}</p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-slate-800/60">
+      <a href="{% url 'list_peminjam' %}"
+        class="rounded-2xl border border-slate-800 bg-slate-900/40 px-5 py-3 text-slate-300 hover:text-white transition duration-200 font-semibold">
+        Kembali
+      </a>
+      <a href="{% url 'ubah_status' peminjaman.id %}"
+        class="rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3 text-white shadow-lg shadow-amber-500/15 hover:shadow-amber-500/25 transition duration-200 font-semibold">
+        Ubah Status
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

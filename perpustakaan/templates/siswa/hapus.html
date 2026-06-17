@@ -1,0 +1,47 @@
+{% extends 'nav.html' %} {% block title %} Hapus User - Sistem Peminjaman Buku SIPUSTAKA {% endblock %} {% block content %}
+<div class="flex flex-col gap-6 text-sm">
+  <!-- Back Button & Header -->
+  <div class="flex items-center gap-3">
+    <a href="{% url 'list_siswa' %}" class="text-slate-400 hover:text-white transition duration-200">
+      <span class="material-icons-outlined text-xl">arrow_back</span>
+    </a>
+    <div>
+      <p class="text-xs uppercase tracking-wider text-red-400 font-semibold mb-1">HAPUS USER</p>
+      <h3 class="text-2xl font-black text-white">Hapus Data User</h3>
+    </div>
+  </div>
+
+  <!-- Confirm Card -->
+  <div class="rounded-[2rem] bg-slate-900/40 border border-red-900/30 p-6 md:p-8 backdrop-blur-md shadow-xl max-w-lg">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-12 h-12 rounded-2xl bg-red-950/60 border border-red-800/30 flex items-center justify-center text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.1)] flex-shrink-0">
+        <span class="material-icons-outlined text-2xl">person_off</span>
+      </div>
+      <div>
+        <p class="text-xs text-slate-500 mb-1">Anda akan menghapus user:</p>
+        <h4 class="text-lg font-bold text-white">{{ siswa.nama }}</h4>
+      </div>
+    </div>
+
+    <div class="rounded-2xl bg-red-950/20 border border-red-900/30 px-5 py-4 mb-6">
+      <p class="text-xs text-red-300/80 leading-relaxed">
+        ⚠️ Data user ini akan dihapus permanen dari daftar anggota perpustakaan dan <strong>tidak dapat dipulihkan</strong>.
+      </p>
+    </div>
+
+    <form method="post" action="{% url 'hapus_siswa' siswa.id %}">
+      {% csrf_token %}
+      <div class="flex items-center justify-end gap-3 border-t border-slate-800/60 pt-5">
+        <a href="{% url 'list_siswa' %}"
+          class="rounded-2xl border border-slate-800 bg-slate-900/40 px-5 py-3 text-slate-300 hover:text-white transition duration-200 font-semibold">
+          Batal
+        </a>
+        <button type="submit"
+          class="rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-6 py-3 text-white shadow-lg shadow-red-500/15 hover:shadow-red-500/30 transition duration-200 font-semibold">
+          Ya, Hapus
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

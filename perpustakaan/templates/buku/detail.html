@@ -1,0 +1,84 @@
+{% extends 'nav.html' %} {% block title %} Detail Buku - Sistem Peminjaman Buku SIPUSTAKA {% endblock %} {% block content %}
+<div class="flex flex-col gap-6 text-sm">
+  <!-- Back Button & Header -->
+  <div class="flex items-center gap-3">
+    <a
+      href="{% url 'list_buku' %}"
+      class="text-slate-400 hover:text-white transition duration-200"
+    >
+      <span class="material-icons-outlined text-xl">arrow_back</span>
+    </a>
+    <div>
+      <p class="text-xs uppercase tracking-wider text-cyan-400 font-semibold mb-1">DETAIL INFORMASI</p>
+      <h3 class="text-2xl font-black text-white">Detail Buku</h3>
+    </div>
+  </div>
+
+  <!-- Detail Content Card -->
+  <div class="rounded-[2rem] bg-slate-900/40 border border-slate-800/70 p-6 md:p-8 backdrop-blur-md shadow-xl max-w-4xl">
+    <div class="grid gap-6 sm:grid-cols-2">
+      <!-- Judul -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Judul</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.judul }}</p>
+      </div>
+      <!-- Pengarang -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Pengarang</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.pengarang|default:"-" }}</p>
+      </div>
+      <!-- Kategori -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Kategori</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.kategori|default:"-" }}</p>
+      </div>
+      <!-- Penerbit -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Penerbit</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.penerbit|default:"-" }}</p>
+      </div>
+      <!-- Tahun Terbit -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tahun Terbit</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.tahun|default:"-" }}</p>
+      </div>
+      <!-- ISBN -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ISBN</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.isbn|default:"-" }}</p>
+      </div>
+      <!-- Rak / Lokasi -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Rak / Lokasi</p>
+        <p class="mt-2 text-base font-bold text-white">{{ buku.rak|default:"-" }}</p>
+      </div>
+      <!-- Stok -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Stok Tersedia</p>
+        <p class="mt-2 text-base font-bold text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.3)]">{{ buku.stok }}</p>
+      </div>
+      <!-- Deskripsi -->
+      <div class="rounded-2xl bg-slate-950/40 border border-slate-800/60 p-5 hover:border-slate-700/50 transition duration-300 sm:col-span-2">
+        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Deskripsi</p>
+        <p class="mt-2 text-sm text-slate-300 leading-relaxed">{{ buku.deskripsi|default:"Tidak ada deskripsi." }}</p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-slate-800/60">
+      <a
+        href="{% url 'list_buku' %}"
+        class="rounded-2xl border border-slate-800 bg-slate-900/40 px-5 py-3 text-slate-300 hover:bg-slate-850 hover:text-white transition duration-200 font-semibold"
+      >
+        Kembali
+      </a>
+      <a
+        href="{% url 'edit_buku' buku.id %}"
+        class="rounded-2xl bg-gradient-to-r from-cyan-500 to-brand-600 px-6 py-3 text-white shadow-lg shadow-cyan-500/15 hover:shadow-cyan-500/25 transition duration-200 font-semibold"
+      >
+        Edit Buku
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
