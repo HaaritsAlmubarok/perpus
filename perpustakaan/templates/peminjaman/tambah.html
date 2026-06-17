@@ -11,19 +11,6 @@
     </div>
   </div>
 
-  <!-- Messages -->
-  {% if messages %}
-  <div class="space-y-2">
-    {% for message in messages %}
-    <div class="rounded-2xl px-5 py-3 text-xs font-semibold
-      {% if message.tags == 'error' %}bg-red-950/60 border border-red-800/40 text-red-300
-      {% else %}bg-emerald-950/60 border border-emerald-800/40 text-emerald-300{% endif %}">
-      {{ message }}
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
-
   <!-- Form Card -->
   <div class="rounded-[2rem] bg-slate-900/40 border border-slate-800/70 p-6 md:p-8 backdrop-blur-md shadow-xl max-w-4xl">
     <form method="POST" class="space-y-6">
